@@ -4,16 +4,36 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
+import com.robot.ui.ListAdapter;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.OnClick;
 import co.fernandohur.dol.R;
+import co.fernandohur.dol.models.Event;
+import co.fernandohur.dol.ui.EventAdapter;
 
 
 public class WelcomeActivity extends ActionBarActivity {
+
+    @InjectView(R.id.listViewSelectEvent) ListView listViewSelectEvent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+
+        ButterKnife.inject(this);
+
+        EventAdapter eventAdapter = new EventAdapter(this);
+        listViewSelectEvent.setAdapter(eventAdapter);
+    }
+
+    @OnClick(R.id.btnCreateEvent)
+    public void onCreateEvent(){
+        //TODO launch the create event activity
     }
 
     @Override
