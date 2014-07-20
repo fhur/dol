@@ -17,5 +17,9 @@ public enum UploadState {
     /**
      * represent the fact that the current local representation has changed and is therefore not up to date with the remote representation
      */
-    needsUploading
+    needsUploading,
+    /**
+     * The initial state for a model, it means that the model has never been uploaded successfully
+     */
+    neverUploaded
 }
