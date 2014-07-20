@@ -1,22 +1,20 @@
 package co.fernandohur.dol.activities;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
-import com.robot.ui.ListAdapter;
-
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 import co.fernandohur.dol.R;
-import co.fernandohur.dol.models.Event;
-import co.fernandohur.dol.ui.EventAdapter;
+import co.fernandohur.dol.ui.DataEventAdapter;
 
 
-public class WelcomeActivity extends ActionBarActivity {
+public class WelcomeActivity extends BaseActivity {
 
     @InjectView(R.id.listViewSelectEvent) ListView listViewSelectEvent;
 
@@ -33,7 +31,8 @@ public class WelcomeActivity extends ActionBarActivity {
 
     @OnClick(R.id.btnCreateEvent)
     public void onCreateEvent(){
-        //TODO launch the create event activity
+        Intent intent = CreateEventActivity.getIntent(this);
+        startActivity(intent);
     }
 
     @Override
