@@ -8,30 +8,30 @@ import com.robot.ui.ListAdapter;
 
 import butterknife.InjectView;
 import co.fernandohur.dol.R;
-import co.fernandohur.dol.models.Event;
+import co.fernandohur.dol.models.DataEvent;
 
 /**
  * Created by fernandinho on 7/19/14.
  */
-public class EventAdapter extends ListAdapter<Event> {
+public class DataEventAdapter extends ListAdapter<DataEvent> {
 
 
-    public EventAdapter(Context context) {
+    public DataEventAdapter(Context context) {
         super(context, R.layout.row_event);
     }
 
     @Override
-    public ViewHolder<Event> getViewHolder(Event model, int pos, View view) {
+    public ViewHolder<DataEvent> getViewHolder(DataEvent model, int pos, View view) {
         return new EventViewHolder();
     }
 
-    public static class EventViewHolder implements ViewHolder<Event>{
+    public static class EventViewHolder implements ViewHolder<DataEvent>{
 
         @InjectView(R.id.txtEventName) TextView txtEventName;
 
         @Override
-        public void update(Event event, int pos) {
-            txtEventName.setText(event.getName());
+        public void update(DataEvent dataEvent, int pos) {
+            txtEventName.setText(dataEvent.getName());
         }
     }
 }

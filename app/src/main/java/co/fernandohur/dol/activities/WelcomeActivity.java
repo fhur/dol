@@ -27,8 +27,8 @@ public class WelcomeActivity extends ActionBarActivity {
 
         ButterKnife.inject(this);
 
-        EventAdapter eventAdapter = new EventAdapter(this);
-        listViewSelectEvent.setAdapter(eventAdapter);
+        DataEventAdapter dataEventAdapter = new DataEventAdapter(this);
+        listViewSelectEvent.setAdapter(dataEventAdapter);
     }
 
     @OnClick(R.id.btnCreateEvent)
