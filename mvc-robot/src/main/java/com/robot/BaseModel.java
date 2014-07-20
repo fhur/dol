@@ -1,6 +1,7 @@
 package com.robot;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by fernandinho on 6/25/14.
@@ -9,11 +10,13 @@ public interface BaseModel {
 
     /**
      * Persists the current BaseModel
+     * @throws com.robot.BaseModel.ModelInvalidException if {@code save()} is called while {@code isValid()} is false
      */
     public void save();
 
     /**
      * Synchronizes the current model's local representation with the remote representation. Normally this means uploading to an API.
+     * @throws com.robot.BaseModel.ModelInvalidException if {@code sync()} is called while {@code isValid()} is false
      */
     public void sync();
 
@@ -59,4 +62,22 @@ public interface BaseModel {
      */
     public Date getCreationDate();
 
+    /**
+     * When creating a new model instance this method verifies that all conditions are met,
+     * i.e. all non null fields are not null, al non-empty fields are not empty, etc.
+     * @return true if the model is valid.
+     */
+    public boolean isValid();
+
+    /**
+     * @return a list of all errors that must be fixed before the object can be saved.
+     */
+    public List<Integer> getErrors();
+
+    public static class ModelInvalidException extends Exception{
+
+        public ModelInvalidException(String message){
+            super(message);
+        }
+    }
 }
