@@ -70,6 +70,16 @@ public abstract class ListAdapter<T> extends BaseAdapter {
         for (T el : elements) {
             add(el);
         }
+        notifyDataSetChanged();
+    }
+
+    public void setData(Collection<? extends T> elements){
+        clear();
+        addAll(elements);
+    }
+
+    public void clear(){
+        list.clear();
     }
 
     public abstract ViewHolder<T> getViewHolder(T model, int pos, View view);

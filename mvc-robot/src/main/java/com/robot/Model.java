@@ -10,8 +10,6 @@ import java.util.List;
 public abstract class Model implements BaseModel {
 
     protected UploadState uploadState;
-    protected Date lastSyncDate;
-    protected Date lastSaveDate;
     protected Date creationDate;
 
     public Model(){
@@ -42,16 +40,6 @@ public abstract class Model implements BaseModel {
     @Override
     public void setUploadState(UploadState uploadState) {
         this.uploadState = uploadState;
-    }
-
-    @Override
-    public Date getLastSyncDate() {
-        return lastSyncDate;
-    }
-
-    @Override
-    public Date getLastSaveDate() {
-        return lastSaveDate;
     }
 
     @Override

@@ -1,11 +1,20 @@
 package co.fernandohur.dol.models;
 
-/**
- * Created by fernandinho on 7/19/14.
- */
-public class DataEvent {
+import com.robot.Model;
 
+/**
+ * Represents a 'general event'
+ */
+public class DataEvent extends Model{
+
+    /**
+     * The name of the event, i.e. "Went out for a run"
+     */
     private String name;
+
+    public DataEvent(String name) {
+        this.name = name;
+    }
 
     public String getName(){
         return name;

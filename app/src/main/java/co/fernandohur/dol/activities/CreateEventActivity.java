@@ -45,6 +45,7 @@ public class CreateEventActivity extends BaseActivity {
         String eventName = txtEventName.getText().toString();
         Map<String, String> map = adapter.getMap();
         postEvent(new CreateDataPointEvent(eventName, map));
+        finish();
     }
 
     @OnClick(R.id.btnAddKeyValue)

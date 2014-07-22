@@ -10,7 +10,7 @@ import dagger.Provides;
 /**
  * Provides Android app context and other android stuff
  */
-@Module
+@Module(library = true)
 public class AndroidModule {
 
     private Context context;

@@ -2,16 +2,26 @@ package co.fernandohur.dol.modules;
 
 import com.squareup.otto.Bus;
 
+import javax.inject.Singleton;
+
+import co.fernandohur.dol.controllers.DataEventController;
 import co.fernandohur.dol.models.DataEventCollection;
 import dagger.Module;
+import dagger.Provides;
 
 /**
- * Created by fernandinho on 7/22/14.
+ * Place all models that should be injected here
  */
-@Module(library = false)
+@Module(library = true, includes = BusModule.class)
 public class ModelsModule {
 
+    @Provides @Singleton
     public DataEventCollection providesDataEventCollection(Bus bus){
         return new DataEventCollection(bus);
+    }
+
+    @Provides @Singleton
+    public DataEventController providesDataEventController(){
+        return new DataEventController();
     }
 }

@@ -9,18 +9,6 @@ import java.util.List;
 public interface BaseModel {
 
     /**
-     * Persists the current BaseModel
-     * @throws com.robot.BaseModel.ModelInvalidException if {@code save()} is called while {@code isValid()} is false
-     */
-    public void save();
-
-    /**
-     * Synchronizes the current model's local representation with the remote representation. Normally this means uploading to an API.
-     * @throws com.robot.BaseModel.ModelInvalidException if {@code sync()} is called while {@code isValid()} is false
-     */
-    public void sync();
-
-    /**
      * @return the current upload state
      * @see com.robot.UploadState
      */
@@ -46,16 +34,6 @@ public interface BaseModel {
      * @param uploadState the upload state
      */
     public void setUploadState(UploadState uploadState);
-
-    /**
-     * @return the date when a successful sync was last made
-     */
-    public Date getLastSyncDate();
-
-    /**
-     * @return the date when a successful save was last made
-     */
-    public Date getLastSaveDate();
 
     /**
      * @return the date when this BaseModel was created locally, not remotely.

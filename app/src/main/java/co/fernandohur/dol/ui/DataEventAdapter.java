@@ -6,6 +6,8 @@ import android.widget.TextView;
 
 import com.robot.ui.ListAdapter;
 
+import java.util.List;
+
 import butterknife.InjectView;
 import co.fernandohur.dol.R;
 import co.fernandohur.dol.models.DataEvent;

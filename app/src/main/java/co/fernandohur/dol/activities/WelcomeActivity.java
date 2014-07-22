@@ -7,16 +7,27 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
+import java.util.List;
+
+import javax.inject.Inject;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 import co.fernandohur.dol.R;
+import co.fernandohur.dol.models.DataEvent;
+import co.fernandohur.dol.models.DataEventCollection;
+import co.fernandohur.dol.models.DataEventModel;
 import co.fernandohur.dol.ui.DataEventAdapter;
 
 
 public class WelcomeActivity extends BaseActivity {
 
     @InjectView(R.id.listViewSelectEvent) ListView listViewSelectEvent;
+
+    @Inject DataEventCollection dataEventCollection;
+
+    private DataEventAdapter dataEventAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +36,16 @@ public class WelcomeActivity extends BaseActivity {
 
         ButterKnife.inject(this);
 
-        DataEventAdapter dataEventAdapter = new DataEventAdapter(this);
+        dataEventAdapter = new DataEventAdapter(this);
         listViewSelectEvent.setAdapter(dataEventAdapter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        List<DataEvent> events = dataEventCollection.getEvents();
+        dataEventAdapter.setData(events);
     }
 
     @OnClick(R.id.btnCreateEvent)

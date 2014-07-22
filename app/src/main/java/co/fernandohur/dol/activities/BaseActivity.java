@@ -8,6 +8,8 @@ import com.squareup.otto.Bus;
 
 import javax.inject.Inject;
 
+import co.fernandohur.dol.models.Injector;
+
 /**
  * Base activity that handles some common tasks such as registering the event bus and setting the
  * 'up' button in the action bar
@@ -19,6 +21,7 @@ public class BaseActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Injector.inject(this);
 
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
