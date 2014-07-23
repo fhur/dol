@@ -1,66 +1,62 @@
 package co.fernandohur.dol.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
-
-import java.util.List;
+import android.widget.TextView;
 
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import butterknife.OnClick;
 import co.fernandohur.dol.R;
 import co.fernandohur.dol.models.DataEvent;
 import co.fernandohur.dol.models.DataEventCollection;
 import co.fernandohur.dol.models.DataEventModel;
-import co.fernandohur.dol.ui.DataEventAdapter;
 
+public class SendEventActivity extends BaseActivity {
 
-public class WelcomeActivity extends BaseActivity implements AdapterView.OnItemClickListener {
-
-    @InjectView(R.id.listViewSelectEvent) ListView listViewSelectEvent;
+    public final static String EXTRA_DATA_EVENT_ID = "extras.data_event_id";
 
     @Inject DataEventCollection dataEventCollection;
 
-    private DataEventAdapter dataEventAdapter;
+    @InjectView(R.id.txtEventName) TextView txtEventName;
+    @InjectView(R.id.listViewAttrs) ListView listViewAttrs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome);
+        setContentView(R.layout.activity_send_event);
 
         ButterKnife.inject(this);
 
-        dataEventAdapter = new DataEventAdapter(this);
-        listViewSelectEvent.setAdapter(dataEventAdapter);
-        listViewSelectEvent.setOnItemClickListener(this);
+        // TODO set adapter for listViewAttrs
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        List<DataEventModel> events = dataEventCollection.toList();
-        dataEventAdapter.setData(events);
-    }
-
-    @OnClick(R.id.btnCreateEvent)
-    public void onCreateEvent(){
-        Intent intent = CreateEventActivity.getIntent(this);
-        startActivity(intent);
+        String id = getDataEventModelId(getIntent());
+        if(id == null){
+            throw new IllegalArgumentException("Cannot pass a null id");
+        }
+        else{
+            DataEventModel model = dataEventCollection.find(id);
+            DataEvent dataEvent = model.getEvent();
+            txtEventName.setText(dataEvent.getName());
+            dataEvent.getAttributes();
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.welcome, menu);
+        getMenuInflater().inflate(R.menu.send_event, menu);
         return true;
     }
 
@@ -70,17 +66,20 @@ public class WelcomeActivity extends BaseActivity implements AdapterView.OnItemC
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            startActivity(SettingsActivity.getIntent(this));
+        if (id == R.id.action_edit_event) {
+            // TODO open the edit DataEvent activity
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        DataEventModel event = dataEventAdapter.getItem(position);
-        Intent intent = SendEventActivity.getIntent(this, event);
-        startActivity(intent);
+    public static Intent getIntent(Context context, DataEventModel dataEventModel){
+        Intent intent = new Intent(context, SendEventActivity.class);
+        intent.putExtra(EXTRA_DATA_EVENT_ID, dataEventModel.getId());
+        return intent;
+    }
+
+    public static String getDataEventModelId(Intent intent){
+        return intent.getStringExtra(EXTRA_DATA_EVENT_ID);
     }
 }
