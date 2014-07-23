@@ -1,5 +1,7 @@
 package co.fernandohur.dol.models;
 
+import java.util.Date;
+
 import com.robot.Model;
 
 /**
@@ -8,9 +10,17 @@ import com.robot.Model;
 public class DataEventModel extends Model {
 
     private DataEvent event;
+    private String id;
 
+    /**
+     * Creates a new DataEventModel
+     * @param event the actual event data
+     * @throws java.lang.IllegalArgumentException if event is null
+     */
     public DataEventModel(DataEvent event){
+        if(event == null) throw new IllegalArgumentException("event == null");
         this.event = event;
+        this.id = new Date().getTime()+"";
     }
 
     @Override
@@ -29,6 +39,16 @@ public class DataEventModel extends Model {
         // TODO upload this event
     }
 
+    /**
+     * @return the unique identifier for this DataEventModel.
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * @return the underlying event. This can never be null
+     */
     public DataEvent getEvent() {
         return event;
     }

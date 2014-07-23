@@ -27,7 +27,7 @@ public class KeyValueAdapter extends ListAdapter<Pair<String, String>> {
 
     @Override
     public ViewHolder<Pair<String, String>> getViewHolder(Pair<String, String> model, int pos, View view) {
-        return null;
+        return new KeyValueViewHolder();
     }
 
     public static class KeyValueViewHolder implements ViewHolder<Pair<String, String>>{

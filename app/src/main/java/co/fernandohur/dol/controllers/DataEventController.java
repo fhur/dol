@@ -17,7 +17,9 @@ import co.fernandohur.dol.models.Injector;
 import co.fernandohur.dol.models.events.CreateDataPointEvent;
 
 /**
- * Created by fernandinho on 7/20/14.
+ * Controller for handling DataEvent related Events
+ * Note: Do not confuse event bus events. These are all placed inside the models.events package
+ * with DataEvent which is a data point that will be uploaded to mixpanel, segment.io, etc
  */
 public class DataEventController {
 
@@ -28,12 +30,17 @@ public class DataEventController {
     public void onCreateEvent(CreateDataPointEvent event){
         Map<String, String> map = event.getMap();
         String name = event.getEventName();
-        DataEvent dataEvent = new DataEvent(name);
+        DataEvent dataEvent = new DataEvent(name, map);
         eventCollection.add(new DataEventModel(dataEvent));
 
         Log.d("DataEventController", "Created new DataEvent: "+eventCollection);
     }
 
+    /**
+     * Initializes the DataEventController. Without calling this method the DataEventController
+     * will not receive event and thus do nothing.
+     * @param context the app context
+     */
     public void initialize(Context context){
         Injector.inject(context, this);
         bus.register(this);

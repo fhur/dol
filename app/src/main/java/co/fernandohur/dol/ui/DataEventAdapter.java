@@ -11,11 +11,12 @@ import java.util.List;
 import butterknife.InjectView;
 import co.fernandohur.dol.R;
 import co.fernandohur.dol.models.DataEvent;
+import co.fernandohur.dol.models.DataEventModel;
 
 /**
  * Created by fernandinho on 7/19/14.
  */
-public class DataEventAdapter extends ListAdapter<DataEvent> {
+public class DataEventAdapter extends ListAdapter<DataEventModel> {
 
 
     public DataEventAdapter(Context context) {
@@ -23,17 +24,17 @@ public class DataEventAdapter extends ListAdapter<DataEvent> {
     }
 
     @Override
-    public ViewHolder<DataEvent> getViewHolder(DataEvent model, int pos, View view) {
+    public ViewHolder<DataEventModel> getViewHolder(DataEventModel model, int pos, View view) {
         return new EventViewHolder();
     }
 
-    public static class EventViewHolder implements ViewHolder<DataEvent>{
+    public static class EventViewHolder implements ViewHolder<DataEventModel>{
 
         @InjectView(R.id.txtEventName) TextView txtEventName;
 
         @Override
-        public void update(DataEvent dataEvent, int pos) {
-            txtEventName.setText(dataEvent.getName());
+        public void update(DataEventModel model, int pos) {
+            txtEventName.setText(model.getEvent().getName());
         }
     }
 }

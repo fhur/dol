@@ -23,4 +23,12 @@ public class DataEventCollection extends BaseCollection<DataEventModel> {
         });
     }
 
+    public DataEventModel find(final String id) {
+        return filterFirst(new Filter<DataEventModel>() {
+            @Override
+            public boolean include(DataEventModel el) {
+                return el.getId().equals(id);
+            }
+        });
+    }
 }
