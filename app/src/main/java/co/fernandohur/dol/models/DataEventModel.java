@@ -1,5 +1,6 @@
 package co.fernandohur.dol.models;
 
+import android.util.Log;
 import android.util.Pair;
 
 import java.util.ArrayList;
@@ -43,6 +44,7 @@ public class DataEventModel extends Model {
      */
     public void sync(){
         // TODO upload this event
+        Log.d("DataEventModel", "Uploading event "+this);
     }
 
     /**
@@ -71,5 +73,10 @@ public class DataEventModel extends Model {
             list.add(pair);
         }
         return list;
+    }
+
+    @Override
+    public String toString() {
+        return "[ id="+getId()+", data="+getEvent()+"]";
     }
 }

@@ -33,6 +33,7 @@ public class SendEventActivity extends BaseActivity {
     @InjectView(R.id.listViewAttrs) ListView listViewAttrs;
 
     EventAttributeAdapter eventAttributeAdapter;
+    DataEventModel model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,13 +55,18 @@ public class SendEventActivity extends BaseActivity {
             throw new IllegalArgumentException("Cannot pass a null id");
         }
         else{
-            DataEventModel model = dataEventCollection.find(id);
+            model = dataEventCollection.find(id);
             DataEvent dataEvent = model.getEvent();
             txtEventName.setText(dataEvent.getName());
             List<Pair<String, String>> attrList = model.getAttributesList();
             eventAttributeAdapter.setData(attrList);
             eventAttributeAdapter.notifyDataSetChanged();
         }
+    }
+
+    @OnClick(R.id.btnSendEvent)
+    public void onSendEvent(){
+        model.sync();
     }
 
     @Override

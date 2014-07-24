@@ -30,4 +30,9 @@ public class DataEvent {
     public Map<String, String> getAttributes() {
         return attrs;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
