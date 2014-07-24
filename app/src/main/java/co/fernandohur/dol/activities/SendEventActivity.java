@@ -4,19 +4,24 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 import co.fernandohur.dol.R;
 import co.fernandohur.dol.models.DataEvent;
 import co.fernandohur.dol.models.DataEventCollection;
 import co.fernandohur.dol.models.DataEventModel;
+import co.fernandohur.dol.ui.EventAttributeAdapter;
 
 public class SendEventActivity extends BaseActivity {
 
@@ -27,6 +32,8 @@ public class SendEventActivity extends BaseActivity {
     @InjectView(R.id.txtEventName) TextView txtEventName;
     @InjectView(R.id.listViewAttrs) ListView listViewAttrs;
 
+    EventAttributeAdapter eventAttributeAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +41,8 @@ public class SendEventActivity extends BaseActivity {
 
         ButterKnife.inject(this);
 
-        // TODO set adapter for listViewAttrs
+        eventAttributeAdapter = new EventAttributeAdapter(this);
+        listViewAttrs.setAdapter(eventAttributeAdapter);
     }
 
     @Override
@@ -49,7 +57,9 @@ public class SendEventActivity extends BaseActivity {
             DataEventModel model = dataEventCollection.find(id);
             DataEvent dataEvent = model.getEvent();
             txtEventName.setText(dataEvent.getName());
-            dataEvent.getAttributes();
+            List<Pair<String, String>> attrList = model.getAttributesList();
+            eventAttributeAdapter.setData(attrList);
+            eventAttributeAdapter.notifyDataSetChanged();
         }
     }
 

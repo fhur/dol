@@ -1,6 +1,12 @@
 package co.fernandohur.dol.models;
 
+import android.util.Pair;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import com.robot.Model;
 
@@ -51,5 +57,19 @@ public class DataEventModel extends Model {
      */
     public DataEvent getEvent() {
         return event;
+    }
+
+    /**
+     * @return the attribute map as a list of Pair<String, String>
+     */
+    public List<Pair<String, String>> getAttributesList(){
+        Map<String, String> map = getEvent().getAttributes();
+        Set<Map.Entry<String, String>> entrySet = map.entrySet();
+        List<Pair<String, String>> list = new ArrayList<Pair<String, String>>(map.size());
+        for(Map.Entry<String, String> entry : entrySet){
+            Pair<String, String> pair = new Pair<String, String>(entry.getKey(), entry.getValue());
+            list.add(pair);
+        }
+        return list;
     }
 }
