@@ -1,5 +1,6 @@
 package co.fernandohur.dol.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -82,5 +83,13 @@ public class WelcomeActivity extends BaseActivity implements AdapterView.OnItemC
         DataEventModel event = dataEventAdapter.getItem(position);
         Intent intent = SendEventActivity.getIntent(this, event);
         startActivity(intent);
+    }
+
+    /**
+     * @param context a reference to a context
+     * @return returns the intent used to launch this activity
+     */
+    public static Intent getIntent(Context context) {
+        return new Intent(context, WelcomeActivity.class);
     }
 }

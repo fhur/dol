@@ -2,6 +2,7 @@ package co.fernandohur.dol.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Pair;
@@ -9,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -67,6 +69,8 @@ public class SendEventActivity extends BaseActivity {
     @OnClick(R.id.btnSendEvent)
     public void onSendEvent(){
         model.sync();
+        Toast.makeText(this, "Sending event "+model.getEvent().getName(), Toast.LENGTH_SHORT).show();
+        NavUtils.navigateUpTo(this, WelcomeActivity.getIntent(this));
     }
 
     @Override

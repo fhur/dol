@@ -1,11 +1,15 @@
 package co.fernandohur.dol.modules;
 
+import android.content.Context;
+
+import com.mixpanel.android.mpmetrics.MixpanelAPI;
 import com.squareup.otto.Bus;
 
 import javax.inject.Singleton;
 
 import co.fernandohur.dol.controllers.DataEventController;
 import co.fernandohur.dol.models.DataEventCollection;
+import co.fernandohur.dol.models.MixpanelApiKeyProvider;
 import dagger.Module;
 import dagger.Provides;
 
@@ -18,6 +22,16 @@ public class ModelsModule {
     @Provides @Singleton
     public DataEventCollection providesDataEventCollection(Bus bus){
         return new DataEventCollection(bus);
+    }
+
+    @Provides
+    public MixpanelApiKeyProvider providesMixpanelApiKeyProvider(Context context){
+        return new MixpanelApiKeyProvider.DefaultProvider(context);
+    }
+
+    @Provides
+    public MixpanelAPI providesMixpanelAPI(Context context, MixpanelApiKeyProvider provider){
+        return MixpanelAPI.getInstance(context, provider.getApiKey());
     }
 
     @Provides @Singleton
