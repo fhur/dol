@@ -10,6 +10,8 @@ import javax.inject.Singleton;
 import co.fernandohur.dol.controllers.DataEventController;
 import co.fernandohur.dol.models.DataEventCollection;
 import co.fernandohur.dol.models.MixpanelApiKeyProvider;
+import co.fernandohur.dol.models.analytics.AnalyticsProvider;
+import co.fernandohur.dol.models.analytics.MixpanelProvider;
 import dagger.Module;
 import dagger.Provides;
 
@@ -32,6 +34,11 @@ public class ModelsModule {
     @Provides
     public MixpanelAPI providesMixpanelAPI(Context context, MixpanelApiKeyProvider provider){
         return MixpanelAPI.getInstance(context, provider.getApiKey());
+    }
+
+    @Provides @Singleton
+    public AnalyticsProvider providesAnalyticsProvider(MixpanelAPI mixpanelAPI){
+        return new MixpanelProvider(mixpanelAPI);
     }
 
     @Provides @Singleton

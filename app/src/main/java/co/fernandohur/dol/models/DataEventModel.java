@@ -1,5 +1,6 @@
 package co.fernandohur.dol.models;
 
+import android.content.Context;
 import android.util.Log;
 import android.util.Pair;
 
@@ -11,10 +12,16 @@ import java.util.Set;
 
 import com.robot.Model;
 
+import javax.inject.Inject;
+
+import co.fernandohur.dol.models.analytics.AnalyticsProvider;
+
 /**
  * A model class
  */
 public class DataEventModel extends Model {
+
+    @Inject AnalyticsProvider analyticsProvider;
 
     private DataEvent event;
     private String id;
@@ -24,7 +31,8 @@ public class DataEventModel extends Model {
      * @param event the actual event data
      * @throws java.lang.IllegalArgumentException if event is null
      */
-    public DataEventModel(DataEvent event){
+    public DataEventModel(Context context, DataEvent event){
+        Injector.inject(context, this);
         if(event == null) throw new IllegalArgumentException("event == null");
         this.event = event;
         this.id = new Date().getTime()+"";
@@ -43,7 +51,7 @@ public class DataEventModel extends Model {
      * Uploads this event.
      */
     public void sync(){
-        // TODO upload this event
+        analyticsProvider.sendEvent(event);
         Log.d("DataEventModel", "Uploading event "+this);
     }
 
