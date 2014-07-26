@@ -18,6 +18,7 @@ import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.TextUtils;
 import co.fernandohur.dol.R;
+import co.fernandohur.dol.models.MixpanelApiKeyProvider;
 
 import java.util.List;
 
@@ -34,14 +35,15 @@ import javax.inject.Inject;
  * href="http://developer.android.com/guide/topics/ui/settings.html">Settings
  * API Guide</a> for more information on developing a Settings UI.
  */
-public class SettingsActivity extends BaseActivity {
+public class SettingsActivity extends PreferenceActivity {
 
-    @Inject DataEventC
+    @Inject MixpanelApiKeyProvider mixpanelApiKeyProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        addPreferencesFromResource(R.xml.pref_general);
     }
 
 

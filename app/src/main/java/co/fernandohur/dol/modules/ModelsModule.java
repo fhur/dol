@@ -18,7 +18,13 @@ import dagger.Provides;
 /**
  * Place all models that should be injected here
  */
-@Module(library = true, includes = BusModule.class)
+@Module(
+        library = true,
+        includes = {
+                BusModule.class,
+                AndroidModule.class
+        }
+)
 public class ModelsModule {
 
     @Provides @Singleton
@@ -32,8 +38,8 @@ public class ModelsModule {
     }
 
     @Provides
-    public MixpanelAPI providesMixpanelAPI(Context context, MixpanelApiKeyProvider provider){
-        return MixpanelAPI.getInstance(context, provider.getApiKey());
+    public MixpanelAPI providesMixpanelAPI(Context context, MixpanelApiKeyProvider mixpanelApiKeyProvider){
+        return MixpanelAPI.getInstance(context, mixpanelApiKeyProvider.getApiKey());
     }
 
     @Provides @Singleton

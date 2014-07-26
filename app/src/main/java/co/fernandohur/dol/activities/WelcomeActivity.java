@@ -21,6 +21,7 @@ import co.fernandohur.dol.R;
 import co.fernandohur.dol.models.DataEvent;
 import co.fernandohur.dol.models.DataEventCollection;
 import co.fernandohur.dol.models.DataEventModel;
+import co.fernandohur.dol.models.analytics.AnalyticsProvider;
 import co.fernandohur.dol.ui.DataEventAdapter;
 
 
@@ -29,6 +30,7 @@ public class WelcomeActivity extends BaseActivity implements AdapterView.OnItemC
     @InjectView(R.id.listViewSelectEvent) ListView listViewSelectEvent;
 
     @Inject DataEventCollection dataEventCollection;
+    @Inject AnalyticsProvider analyticsProvider;
 
     private DataEventAdapter dataEventAdapter;
 
@@ -50,6 +52,12 @@ public class WelcomeActivity extends BaseActivity implements AdapterView.OnItemC
 
         List<DataEventModel> events = dataEventCollection.toList();
         dataEventAdapter.setData(events);
+    }
+
+    @Override
+    protected void onDestroy() {
+        analyticsProvider.flush();
+        super.onDestroy();
     }
 
     @OnClick(R.id.btnCreateEvent)

@@ -2,33 +2,36 @@ package co.fernandohur.dol.models;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 /**
  * Created by fernandinho on 7/24/14.
  */
 public interface MixpanelApiKeyProvider {
 
-    public void setApiKey(String apiKey);
+    /**
+     *
+     * @return the mixpanel api key set in settings.
+     * @throws java.lang.IllegalStateException If there is no key configured
+     */
     public String getApiKey();
 
     public static class DefaultProvider implements MixpanelApiKeyProvider{
 
-        public final static String PREF_LOCATION = "storage.mixpanel.apikey";
-        public final static String KEY_APIKEY = "storage.mixpanel.keys.apikey";
+        public final static String KEY_APIKEY = "mixpanel_api_key";
         private SharedPreferences prefs;
 
         public DefaultProvider(Context context){
-            this.prefs = context.getSharedPreferences(PREF_LOCATION, Context.MODE_PRIVATE);
-        }
-
-        @Override
-        public void setApiKey(String apiKey) {
-            this.prefs.edit().putString(KEY_APIKEY, apiKey).commit();
+            this.prefs = PreferenceManager.getDefaultSharedPreferences(context);
         }
 
         @Override
         public String getApiKey() {
-            return this.prefs.getString(KEY_APIKEY, null);
+            String key = this.prefs.getString(KEY_APIKEY, null);
+            if(key == null){
+                throw new IllegalStateException("key == null, make sure you configure it before calling getApiKey");
+            }
+            return key;
         }
     }
 }
