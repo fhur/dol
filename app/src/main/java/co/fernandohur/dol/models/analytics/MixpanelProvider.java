@@ -23,6 +23,7 @@ public class MixpanelProvider implements AnalyticsProvider{
     private MixpanelAPI mixpanelAPI;
 
     public MixpanelProvider(MixpanelAPI mixpanelAPI){
+        Log.d(TAG, "Created new MixpanelProvider");
         this.mixpanelAPI = mixpanelAPI;
         this.mixpanelAPI.identify("fernandohur");
     }
