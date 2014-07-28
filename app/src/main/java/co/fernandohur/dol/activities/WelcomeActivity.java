@@ -23,6 +23,7 @@ import co.fernandohur.dol.models.DataEventCollection;
 import co.fernandohur.dol.models.DataEventModel;
 import co.fernandohur.dol.models.analytics.AnalyticsProvider;
 import co.fernandohur.dol.ui.DataEventAdapter;
+import dagger.Lazy;
 
 
 public class WelcomeActivity extends BaseActivity implements AdapterView.OnItemClickListener {
@@ -30,7 +31,7 @@ public class WelcomeActivity extends BaseActivity implements AdapterView.OnItemC
     @InjectView(R.id.listViewSelectEvent) ListView listViewSelectEvent;
 
     @Inject DataEventCollection dataEventCollection;
-    @Inject AnalyticsProvider analyticsProvider;
+    @Inject Lazy<AnalyticsProvider> analyticsProvider;
 
     private DataEventAdapter dataEventAdapter;
 
@@ -56,7 +57,7 @@ public class WelcomeActivity extends BaseActivity implements AdapterView.OnItemC
 
     @Override
     protected void onDestroy() {
-        analyticsProvider.flush();
+        analyticsProvider.get().flush();
         super.onDestroy();
     }
 

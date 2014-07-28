@@ -15,13 +15,14 @@ import com.robot.Model;
 import javax.inject.Inject;
 
 import co.fernandohur.dol.models.analytics.AnalyticsProvider;
+import dagger.Lazy;
 
 /**
  * A model class
  */
 public class DataEventModel extends Model {
 
-    @Inject AnalyticsProvider analyticsProvider;
+    @Inject Lazy<AnalyticsProvider> analyticsProvider;
 
     private DataEvent event;
     private String id;
@@ -51,7 +52,7 @@ public class DataEventModel extends Model {
      * Uploads this event.
      */
     public void sync(){
-        analyticsProvider.sendEvent(event);
+        analyticsProvider.get().sendEvent(event);
         Log.d("DataEventModel", "Uploading event "+this);
     }
 
