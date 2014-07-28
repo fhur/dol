@@ -23,6 +23,7 @@ import co.fernandohur.dol.R;
 import co.fernandohur.dol.models.DataEvent;
 import co.fernandohur.dol.models.DataEventCollection;
 import co.fernandohur.dol.models.DataEventModel;
+import co.fernandohur.dol.models.events.RemoveDataPointEvent;
 import co.fernandohur.dol.ui.EventAttributeAdapter;
 
 public class SendEventActivity extends BaseActivity {
@@ -88,6 +89,10 @@ public class SendEventActivity extends BaseActivity {
         int id = item.getItemId();
         if (id == R.id.action_edit_event) {
             // TODO open the edit DataEvent activity
+            return true;
+        }
+        else if (id == R.id.action_remove_event){
+            postEvent(new RemoveDataPointEvent(model));
             return true;
         }
         return super.onOptionsItemSelected(item);

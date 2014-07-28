@@ -15,6 +15,7 @@ import co.fernandohur.dol.models.DataEventCollection;
 import co.fernandohur.dol.models.DataEventModel;
 import co.fernandohur.dol.models.Injector;
 import co.fernandohur.dol.models.events.CreateDataPointEvent;
+import co.fernandohur.dol.models.events.RemoveDataPointEvent;
 
 /**
  * Controller for handling DataEvent related Events
@@ -22,6 +23,8 @@ import co.fernandohur.dol.models.events.CreateDataPointEvent;
  * with DataEvent which is a data point that will be uploaded to mixpanel, segment.io, etc
  */
 public class DataEventController {
+
+    public final static String TAG = "DataEventController";
 
     @Inject DataEventCollection eventCollection;
     @Inject Bus bus;
@@ -35,7 +38,14 @@ public class DataEventController {
         DataEventModel model = new DataEventModel(context, dataEvent);
         eventCollection.add(model);
         eventCollection.save();
-        Log.d("DataEventController", "Created new DataEvent: "+eventCollection);
+        Log.d(TAG, "Created new DataEvent: "+eventCollection);
+    }
+
+    @Subscribe
+    public void onRemoveEvent(RemoveDataPointEvent event){
+        Log.d(TAG, "Removing event: "+event);
+        eventCollection.remove(event.getData());
+        eventCollection.save();
     }
 
     /**
