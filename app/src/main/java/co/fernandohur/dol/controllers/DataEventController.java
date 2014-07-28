@@ -27,14 +27,14 @@ public class DataEventController {
     @Inject Bus bus;
     @Inject Context context;
 
-
     @Subscribe
     public void onCreateEvent(CreateDataPointEvent event){
         Map<String, String> map = event.getMap();
         String name = event.getEventName();
         DataEvent dataEvent = new DataEvent(name, map);
-        eventCollection.add(new DataEventModel(context, dataEvent));
-
+        DataEventModel model = new DataEventModel(context, dataEvent);
+        eventCollection.add(model);
+        eventCollection.save();
         Log.d("DataEventController", "Created new DataEvent: "+eventCollection);
     }
 

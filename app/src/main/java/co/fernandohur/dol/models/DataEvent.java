@@ -1,5 +1,6 @@
 package co.fernandohur.dol.models;
 
+import com.google.gson.annotations.SerializedName;
 import com.robot.Model;
 
 import java.util.Map;
@@ -12,8 +13,8 @@ public class DataEvent {
     /**
      * The name of the event, i.e. "Went out for a run"
      */
-    private String name;
-    private Map<String, String> attrs;
+    @SerializedName("name")     String name;
+    @SerializedName("attrs")    Map<String, String> attrs;
 
     public DataEvent(String name, Map<String, String> attrs) {
         this.name = name;

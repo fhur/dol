@@ -9,6 +9,7 @@ import javax.inject.Singleton;
 
 import co.fernandohur.dol.controllers.DataEventController;
 import co.fernandohur.dol.models.DataEventCollection;
+import co.fernandohur.dol.models.DataEventStorage;
 import co.fernandohur.dol.models.MixpanelApiKeyProvider;
 import co.fernandohur.dol.models.analytics.AnalyticsProvider;
 import co.fernandohur.dol.models.analytics.MixpanelProvider;
@@ -28,11 +29,16 @@ import dagger.Provides;
 public class ModelsModule {
 
     @Provides @Singleton
-    public DataEventCollection providesDataEventCollection(Bus bus){
-        return new DataEventCollection(bus);
+    public DataEventStorage providesDataEventStorage(Context context){
+        return new DataEventStorage(context);
     }
 
-    @Provides
+    @Provides @Singleton
+    public DataEventCollection providesDataEventCollection(Context context, Bus bus, DataEventStorage storage){
+        return new DataEventCollection(context, bus, storage);
+    }
+
+    @Provides @Singleton
     public MixpanelApiKeyProvider providesMixpanelApiKeyProvider(Context context){
         return new MixpanelApiKeyProvider.DefaultProvider(context);
     }
