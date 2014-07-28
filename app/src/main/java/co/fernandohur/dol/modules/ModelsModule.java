@@ -50,7 +50,11 @@ public class ModelsModule {
 
     @Provides @Singleton
     public AnalyticsProvider providesAnalyticsProvider(MixpanelAPI mixpanelAPI){
-        return new MixpanelProvider(mixpanelAPI);
+        try {
+            return new MixpanelProvider(mixpanelAPI);
+        } catch (Exception e) {
+            return new AnalyticsProvider.VoidProvider();
+        }
     }
 
     @Provides @Singleton
