@@ -26,6 +26,10 @@
             android:label="@string/title_activity_create_event" >
         </activity>
         <activity
+            android:name=".activities.UpdateEventActivity"
+            android:label="@string/title_activity_create_event" >
+        </activity>
+        <activity
             android:name=".activities.SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>
