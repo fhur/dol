@@ -93,6 +93,7 @@ public class SendEventActivity extends BaseActivity {
         }
         else if (id == R.id.action_remove_event){
             postEvent(new RemoveDataPointEvent(model));
+            finish();
             return true;
         }
         return super.onOptionsItemSelected(item);

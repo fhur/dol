@@ -74,10 +74,11 @@ public abstract class BaseCollection<T> implements Iterable<T> {
      * Removes a given element. If you wish to remove more than one the recommended way to do this is by using {@link #removeAll(java.util.Collection)}
      *
      * @param el the element to remove. Removal is based on the {@code equals} method.
+     * @return true if an element was actually removed, false otherwise
      */
-    public void remove(T el) {
+    public boolean remove(T el) {
         synchronized (lock){
-            list.remove(el);
+            return list.remove(el);
         }
     }
 

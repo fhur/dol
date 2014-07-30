@@ -2,6 +2,7 @@ package co.fernandohur.dol.controllers;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
@@ -44,8 +45,11 @@ public class DataEventController {
     @Subscribe
     public void onRemoveEvent(RemoveDataPointEvent event){
         Log.d(TAG, "Removing event: "+event);
-        eventCollection.remove(event.getData());
-        eventCollection.save();
+        boolean removed = eventCollection.remove(event.getData());
+        if(removed){
+            eventCollection.save();
+            Toast.makeText(context, "Event Removed", Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
