@@ -25,7 +25,6 @@ public class DataEventModel extends Model {
     @Inject Lazy<AnalyticsProvider> analyticsProvider;
 
     private DataEvent event;
-    private String id;
 
     /**
      * Creates a new DataEventModel
@@ -36,7 +35,6 @@ public class DataEventModel extends Model {
         Injector.inject(context, this);
         if(event == null) throw new IllegalArgumentException("event == null");
         this.event = event;
-        this.id = new Date().getTime()+"";
     }
 
     @Override
@@ -60,7 +58,7 @@ public class DataEventModel extends Model {
      * @return the unique identifier for this DataEventModel.
      */
     public String getId() {
-        return id;
+        return event.getName();
     }
 
     /**
